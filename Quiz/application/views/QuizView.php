@@ -14,9 +14,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div id="container">
 	<h1>Welcome to the Naruto QUIZ!</h1>
 
-    <form method='' action="<?php echo base_url();?>index.php/Quizgame/questions/1">
-        <input type='submit' value='Start'>
-    </form>
+	<?php if (!empty($quizzes)): ?>
+        <?php foreach ($quizzes as $quiz): ?>
+            <div>
+                <h2><?php echo htmlspecialchars($quiz->Name); ?></h2>
+                <form method="post" action="<?php echo base_url('index.php/Quizgame/questions/' . $quiz->quizID); ?>">
+                    <input type='submit' value='Start'>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No quizzes available.</p>
+    <?php endif; ?>
 </div>
 
 </body>

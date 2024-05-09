@@ -8,7 +8,9 @@ class Quizgame extends CI_Controller {
 		$this->load->database();
 	}
 	public function quiz(){
-		$this->load->view('QuizView');
+		$this->load->model('quizmodel');
+		$data['quizzes'] = $this->quizmodel->getAllQuizzes();
+		$this->load->view('QuizView', $data);
 	}
 	public function questions($quizID = NULL)
 	{
@@ -33,6 +35,8 @@ class Quizgame extends CI_Controller {
 			$nameofquiz = $data['questions'][0]->Name; // Accessing Name property of the first object in the array
 			$data['quiz_name'] = $nameofquiz; // Storing quiz name in $data array to be used in the view
 			// Load the quiz display view with the questions data
+			$quizID = $data['questions'][0]->quizID;
+			$data['quiz_id'] = $quizID;
 			$this->load->view('quizdisplay', $data);
 		}
 	}

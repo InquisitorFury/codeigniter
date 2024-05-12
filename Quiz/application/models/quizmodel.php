@@ -38,7 +38,20 @@ class quizmodel extends CI_Model {
 		// Return query result as an array of objects.
 		return $query->result();
 	}
-
+	
+	public function createQuiz($quiz_data){
+		// Insert quiz data into database
+		$this->db->insert('quiz', $quiz_data);
+	
+		// Return the inserted quiz ID
+		return $this->db->insert_id();
+	}
+	
+	public function createQuestions($questions_data){
+		// Insert questions data into database
+		$this->db->insert_batch('questions', $questions_data);
+	}
+	
 	
 	
 }
